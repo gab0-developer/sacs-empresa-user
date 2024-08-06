@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://miro.medium.com/v2/resize:fit:900/1*TY9uBBO9leUbRtlXmQBiug.png" alt="Nodejs Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png" alt="Nodejs Logo"></a></p>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://ivazz.com/wp-content/uploads/2021/05/react.png" width="400" alt="Reactjs Logo"></a></p>
 
