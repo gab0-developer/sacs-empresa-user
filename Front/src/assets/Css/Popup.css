@@ -1,0 +1,38 @@
+.tit_popup{
+    width: 100%;
+    /* text-align: center; */
+    /* background-image: radial-gradient(circle, #f93636, #ed3231, #e22d2d, #d62928, #cb2424); */
+    /* background:linear-gradient(to right top, #da233fe1, #b7293cbc), url(../Img/fondo-ivss-red.jpg) no-repeat; */
+    /* background: linear-gradient(to right, #319cda, #3f4fe0); */
+    background:linear-gradient(to right top, #f04b6370, #df263e5b), url(../../assets/Img/fondo_membrete_perfil.png) no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 1rem;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    color: #fff;
+
+}
+.cont_bodymodal{
+    background: url(../Img/logoPastel-removebg-preview.png) 50% no-repeat ;
+}
+.bodymodal{
+    background-color: #cccccc34;
+    /* height:620px;
+    overflow: scroll; */
+    padding-top:5px ;
+}
+#subheader-global{
+    background:linear-gradient(to right top, #da233fe1, #b7293cbc), url(../Img/fondo-ivss-red.jpg) no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center;
+    margin: 5px 0;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    /* sx={{textAlign:'center',my:'5px',mb:2, bgcolor:'#d43838'}} */
+}

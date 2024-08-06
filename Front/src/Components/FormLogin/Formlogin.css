@@ -1,0 +1,78 @@
+
+.container_padre_form{
+    box-shadow: 2px 2px 7px rgba(25, 25, 97, 0.432);
+}
+.tit_login{
+    z-index: 600;
+    cursor:pointer;
+}
+.active_btn_login{
+    border-bottom: 1px solid #000;
+}
+.cuadro{
+    position: absolute;
+    /* background:linear-gradient(to right top, #09538b, #92e1e2); */
+    background: url(../../assets/Img/login_sacs.png) no-repeat;
+    background-size: 100% 100%;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    z-index: 500;
+    right: 0;
+    transform: translate(-100%);
+    transition: all 0.5s ease ;
+
+}
+.link_olvido_pass{
+    text-decoration: none;
+    font-size: 15px;
+    color: rgb(10, 140, 150);
+}
+.link_olvido_pass:hover{
+    color: rgb(41, 127, 226);
+}
+/* .cuadro_active{
+    
+    right: 0;
+    transform: translate(0%);
+    transition: all 0.5s ease ;
+} 
+.cuadro_izq{
+    left: 0;
+    transition: linear 2s ease-in-out;
+}  */
+.cuadro_text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    position: absolute;
+    top: 0;
+    bottom: 15rem;
+    left: 0;
+    right: 0;
+
+    padding: 1rem;
+}
+/* ----------------------- */
+/* ESTYLE DE FORMULARIOS SACS */
+/* ----------------------- */
+
+/* aplico estilo al contenedor de los formularios */
+.container_forms{
+    width: 65%;
+}
+
+/* RESPONSIVE FORMULARIO SACS */
+
+@media (max-width: 800px) {
+    .container_text_forms{
+        display: none;
+    }    
+    .container_forms{
+        /* display: none; */
+        width: 100%;
+    }
+}
+  

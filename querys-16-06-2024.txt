@@ -1,0 +1,128 @@
+---------FUNCION -------REGISTER_PAGO_SOLICITUD-------------
+
+
+DROP FUNCTION IF EXISTS sacs.register_pago_solicitud(character varying, character varying, numeric, numeric, character varying, date);
+
+CREATE OR REPLACE FUNCTION sacs.register_pago_solicitud(
+	i_rif_empresa character varying,
+	i_nro_solicitud character varying,
+	i_tipo_banco numeric,
+	i_monto_solicitud numeric,
+	i_referencia_bancaria character varying,
+	i_fecha_pago_solicitud_realizada date,
+	OUT retorno character varying)
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+
+ --DEFINO EL CUERPO DE MI PROCEDURE
+ --DEFINO EL CUERPO DE MI PROCEDURE
+
+declare
+
+   v_estatus_solicitud numeric;
+	v_sol_est varchar(2);
+	v_nro_solicitud_renovada varchar(100);
+begin
+		   
+		 if i_rif_empresa is null or i_rif_empresa = ''  or
+		 	i_nro_solicitud is null or i_nro_solicitud = ''  or
+		 	i_tipo_banco is null or i_tipo_banco = 0  or
+		 	i_monto_solicitud is null or i_monto_solicitud = 0  or
+		 	i_referencia_bancaria is null or i_referencia_bancaria = '' then
+		 	-- i_estatus_solicitud is null or i_estatus_solicitud = ''  then
+		 	 
+					retorno := 3;--no se esta pasando valor
+				else 
+
+					select sev.sol_est 
+					into v_sol_est
+					from sacs.solicitud_empresas_pago_pendiente_view sev 
+					where sev.nro_solicitud = i_nro_solicitud;
+					
+					if v_sol_est = 'N' then
+
+						
+						--estatus de solicitud por defecto:
+						select es.pk_estatus_solicitud into v_estatus_solicitud from "sacs".estatus_solicitud es 
+							where es.pk_estatus_solicitud = 2;
+							
+							--UPDATE ESTATU DE LA SOLCITUD A 2 (PAGO RECIBIDO)
+							update sacs.solicitud
+								set fk_estatus_solicitud  = v_estatus_solicitud
+								where fk_empresa  = i_rif_empresa
+								and pk_solicitud = i_nro_solicitud;
+							
+							---INSERT PAGO DE SOLICITUD 
+						insert into "sacs".pagos_solicitud (pk_pago_solicitud,fk_solicitud,fk_banco, monto, referencia_bancaria,fecha_pago,estatus)
+												values(NEXTVAL('"sacs".sq_pago_solicitud'),i_nro_solicitud,i_tipo_banco,i_monto_solicitud,i_referencia_bancaria,i_fecha_pago_solicitud_realizada,v_estatus_solicitud);
+							
+							retorno := 2;--solicitud registrada
+						
+						else
+
+							--estatus de solicitud por defecto:
+							select es.pk_estatus_solicitud into v_estatus_solicitud from "sacs".estatus_solicitud es 
+								where es.pk_estatus_solicitud = 2;
+								
+								--UPDATE ESTATU DE LA SOLCITUD A 2 (PAGO RECIBIDO)
+								update sacs.solicitud_renovacion
+									set fk_estatus_solicitud  = v_estatus_solicitud
+									where pk_solicitud_rev = i_nro_solicitud;
+								
+								---INSERT PAGO DE SOLICITUD 
+							insert into "sacs".pagos_solicitud (pk_pago_solicitud,fk_solicitud,fk_banco, monto, referencia_bancaria,fecha_pago,estatus)
+													values(NEXTVAL('"sacs".sq_pago_solicitud'),i_nro_solicitud,i_tipo_banco,i_monto_solicitud,i_referencia_bancaria,i_fecha_pago_solicitud_realizada,v_estatus_solicitud);
+								
+							retorno := 2;--solicitud registrada
+
+					end if;
+
+					
+			end if;
+   	  
+	  
+end;
+$BODY$;
+
+ALTER FUNCTION sacs.register_pago_solicitud(character varying, character varying, numeric, numeric, character varying, date)
+    OWNER TO postgres;
+
+
+
+
+
+
+
+----------------VIEW COORDINACION_VIEW --------
+
+
+DROP VIEW sacs.coordinacion_view;
+
+CREATE OR REPLACE VIEW sacs.coordinacion_view
+ AS
+ SELECT coordinacion.pk_coordinacion,
+    coordinacion.descripcion,
+    coordinacion.fk_direccion
+   FROM sacs.coordinacion;
+
+
+
+
+-----VIEW---- COORDINACION_ARA_VIEW-------------------
+
+DROP VIEW sacs.coordinacion_area_view;
+
+CREATE OR REPLACE VIEW sacs.coordinacion_area_view
+ AS
+ SELECT ca.pk_coor_area,
+    c.descripcion AS coordinacion,
+    es.pk_area,
+    es.descripcion AS area
+   FROM sacs.coordinacion_area ca
+     JOIN sacs.area es ON es.pk_area = ca.fk_area::numeric
+     JOIN sacs.coordinacion c ON c.pk_coordinacion = ca.fk_coordinacion::numeric;
+
+

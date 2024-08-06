@@ -1,0 +1,18 @@
+.membrete_empresa{
+    background: url('../Img/fondo_membrete_perfil.png');
+    background-size: cover;
+    height: 10rem;
+
+}   
+.logo_membrete{
+    width: 150px;
+    height: auto;
+}
+
+.text_gradient_membrete{
+    background-image: linear-gradient(45deg, #ffffffcb,#fafafa);
+    background-clip: text; /* representara el fondo donde hay texto. El gradient color se oculta debajo del texto*/
+    -webkit-text-fill-color: transparent ; /* para que se visualice el gradient color se coloca el texto en transparente*/
+    -moz-text-fill-color: transparent ; /* para que se visualice el gradient color se coloca el texto en transparente*/
+    -o-text-fill-color: transparent ; /* para que se visualice el gradient color se coloca el texto en transparente*/
+}

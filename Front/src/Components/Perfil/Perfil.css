@@ -1,0 +1,5 @@
+.container_perfil{
+    background:linear-gradient(to right top, #f04b6370, #df263e5b), url('../../assets/Img/fondo_membrete_perfil.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
